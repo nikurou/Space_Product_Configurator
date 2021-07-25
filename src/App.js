@@ -34,7 +34,7 @@ const App = () => {
           <ambientLight intensity={0.2} />
           <pointLight position={[20, 20, 20]} intensity={0.5} />
 
-          {/*Add 200 Random Stars*/}
+          {/*Add 700 Random Stars*/}
           {posArray.map((arr) => (
             <Stars position={[arr[0], arr[1], arr[2]]}></Stars>
           ))}
