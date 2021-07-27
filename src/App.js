@@ -1,16 +1,32 @@
 import React, { useRef, useState, Suspense, useEffect } from "react";
 import "./App.css";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useThree, useLoader } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Html, useProgress } from "@react-three/drei";
 
 import Torus from "./components/Torus";
 import TestBox from "./components/TestBox";
-import Stars from "./components/Stars";
+import Star from "./components/Stars";
 
-import { useSpring, a } from "react-spring";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Stars } from "@react-three/drei";
+import Earth from "./components/Earth";
+import Moon from "./components/Moon";
+import bomb from "./assets/3d_models/bomb.gltf";
 
 const App = () => {
+  // Star Position Array
   const [posArray, setPos] = useState([]);
+  // Temporary Headphone Model
+
+  const Model = () => {
+    const gltf = useLoader(GLTFLoader, bomb);
+    return <primitive object={gltf.scene} scale={0.4} />;
+  };
+
+  const Loader = () => {
+    const { active, progress, errors, item, loaded, total } = useProgress();
+    return <Html center>{progress} % loaded</Html>;
+  };
 
   // Trigger on Initial Render
   // Generate position array for Stars between -100 and 100
@@ -36,11 +52,20 @@ const App = () => {
 
           {/*Add 700 Random Stars*/}
           {posArray.map((arr) => (
-            <Stars position={[arr[0], arr[1], arr[2]]}></Stars>
+            <Star position={[arr[0], arr[1], arr[2]]}></Star>
           ))}
 
-          {/* Add the Donut */}
-          <Suspense fallback={null}>
+          {/*Throw in some Imported Drei Stars cause why not*/}
+          <Stars />
+
+          {/* Add with Suspense*/}
+          <Suspense fallback={<Loader />}>
+            <Model />
+            {/* Add Earth */}
+            <Earth position={[250, 14, -40]} />
+            {/* Add the Moon */}
+            <Moon position={[400, 50, -40]} />
+            {/* Add Donut */}
             <Torus />
           </Suspense>
 
