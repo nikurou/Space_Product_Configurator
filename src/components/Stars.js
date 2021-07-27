@@ -3,7 +3,6 @@ import { useFrame } from "@react-three/fiber";
 
 const Stars = (props) => {
   const mesh = useRef();
-  // Rotate mesh every frame, this is outside of React without overhead
 
   return (
     <mesh ref={mesh} scale={0.45} position={props.position}>
