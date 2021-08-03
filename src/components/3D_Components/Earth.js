@@ -1,7 +1,7 @@
 import React, { Suspense, useRef } from "react";
 import { useFrame, useLoader, Canvas } from "@react-three/fiber";
 import { TextureLoader } from "three";
-import earth_texture from "../assets/textures/earth_texture.jpg";
+import earth_texture from "../../assets/textures/earth_texture.jpg";
 
 const Earth = (props) => {
   const mesh = useRef();

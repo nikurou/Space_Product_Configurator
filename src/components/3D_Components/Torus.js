@@ -1,8 +1,8 @@
 import React, { useRef, useState, Suspense } from "react";
 import { useFrame, useLoader, Canvas } from "@react-three/fiber";
 import { TextureLoader } from "three";
-import donut_texture from "../assets/textures/donut_texture.jpg";
-import cake_normal_map from "../assets/normal_maps/cake_normal_map.jpg";
+import donut_texture from "../../assets/textures/donut_texture.jpg";
+import cake_normal_map from "../../assets/normal_maps/cake_normal_map.jpg";
 
 const Torus = () => {
   const mesh = useRef();

@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
-import moon_texture from "../assets/textures/moon_texture.jpg";
-import moon_normal from "../assets/normal_maps/moon_normal.jpg";
+import moon_texture from "../../assets/textures/moon_texture.jpg";
+import moon_normal from "../../assets/normal_maps/moon_normal.jpg";
 
 const Moon = (props) => {
   const mesh = useRef();
