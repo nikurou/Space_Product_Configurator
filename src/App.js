@@ -5,20 +5,22 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Html, useProgress } from "@react-three/drei";
 import { OrbitControls, Stars } from "@react-three/drei";
 
-//Components
-import Torus from "./components/Torus";
-import TestBox from "./components/TestBox";
-import Star from "./components/Stars";
-import Earth from "./components/Earth";
-import Moon from "./components/Moon";
+//3D Components
+import Torus from "./components/3D_Components/Torus";
+import TestBox from "./components/3D_Components/TestBox";
+import Star from "./components/3D_Components/Stars";
+import Earth from "./components/3D_Components/Earth";
+import Moon from "./components/3D_Components/Moon";
+import Bomb from "./components/3D_Components/Bomb";
 
 // 3D Models
-import bomb from "./assets/3d_models/bomb.gltf";
 import headPhone from "./assets/3d_models/headphone_model/headphone.gltf";
+import Accordion_Dropdown from "./components/Accordion_Dropdown";
 
 const App = () => {
   // Star Position Array Hook
   const [posArray, setPos] = useState([]);
+  const [meshArray, setMeshArray] = useState([]);
 
   // Trigger on Initial Render
   // Generate position array for Stars between -100 and 100
@@ -35,25 +37,24 @@ const App = () => {
     setPos(temp);
   }, []);
 
-  // Temporary Bomb Model
-  const Model = () => {
-    const gltf = useLoader(GLTFLoader, bomb);
-    console.log(gltf.scene);
-    // Code to change color
-    gltf.scene.getObjectByName("Handles").material.color.set("blue");
-    return <primitive object={gltf.scene} scale={0.4} />;
-  };
+  useEffect(() => {
+    console.log(`Meshes: ${meshArray}`);
+  }, [meshArray]);
 
   // Suspense fallback Loader
   const Loader = () => {
-    const { active, progress, errors, item, loaded, total } = useProgress();
+    const { progress } = useProgress();
     return <Html center>{progress} % loaded</Html>;
   };
 
+  const handleSetMesh = (meshes_array) => {
+    console.log("triggered");
+    setMeshArray(meshes_array);
+  };
+
   return (
-    <div className="bg-scene">
-      <p>Hello</p>
-      <div className="donut-scene">
+    <div class="scene">
+      <div class="donut-scene">
         <Canvas colorManagement camera={{ position: [-5, 0, 0] }}>
           <ambientLight intensity={0.2} />
           <pointLight position={[20, 20, 20]} intensity={0.5} />
@@ -68,7 +69,7 @@ const App = () => {
 
           {/* Add with Suspense*/}
           <Suspense fallback={<Loader />}>
-            <Model />
+            <Bomb handleSetMesh={handleSetMesh} />
             {/* Add Earth */}
             <Earth position={[250, 14, -40]} />
             {/* Add the Moon */}
@@ -79,6 +80,16 @@ const App = () => {
 
           <OrbitControls />
         </Canvas>
+      </div>
+
+      {/* The User Inteface Menu to change the color */}
+      <div class="menu-overlay">
+        <div class="menu-content">
+          {meshArray.map((mesh) => (
+            <Accordion_Dropdown name={mesh.name} />
+          ))}
+          <Accordion_Dropdown />
+        </div>
       </div>
     </div>
   );
