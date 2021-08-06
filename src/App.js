@@ -3,7 +3,7 @@ import "./App.css";
 import { Canvas, useThree, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Html, useProgress } from "@react-three/drei";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { Environment, OrbitControls, Stars } from "@react-three/drei";
 
 //3D Components
 import Torus from "./components/3D_Components/Torus";
@@ -11,11 +11,13 @@ import TestBox from "./components/3D_Components/TestBox";
 import Star from "./components/3D_Components/Stars";
 import Earth from "./components/3D_Components/Earth";
 import Moon from "./components/3D_Components/Moon";
-import Bomb from "./components/3D_Components/Bomb";
+import Model_Loader from "./components/3D_Components/Model_Loader";
 
 // 3D Models
 import headPhone from "./assets/3d_models/headphone_model/headphone.gltf";
 import Accordion_Dropdown from "./components/Accordion_Dropdown";
+import bomb from "./assets/3d_models/bomb.gltf";
+import ps5_controller from "./assets/3d_models/ps5_controller/scene.gltf";
 
 const App = () => {
   // Star Position Array Hook
@@ -37,18 +39,14 @@ const App = () => {
     setPos(temp);
   }, []);
 
-  useEffect(() => {
-    console.log(`Meshes: ${meshArray}`);
-  }, [meshArray]);
-
   // Suspense fallback Loader
   const Loader = () => {
     const { progress } = useProgress();
     return <Html center>{progress} % loaded</Html>;
   };
 
+  // Helper function to set array of configurable meshes for given 3D model
   const handleSetMesh = (meshes_array) => {
-    console.log("triggered");
     setMeshArray(meshes_array);
   };
 
@@ -69,13 +67,16 @@ const App = () => {
 
           {/* Add with Suspense*/}
           <Suspense fallback={<Loader />}>
-            <Bomb handleSetMesh={handleSetMesh} />
+            <Model_Loader model={bomb} handleSetMesh={handleSetMesh} />
             {/* Add Earth */}
             <Earth position={[250, 14, -40]} />
             {/* Add the Moon */}
             <Moon position={[400, 50, -40]} />
             {/* Add Donut */}
             {/* <Torus /> */}
+
+            {/* Just a preset for brighter lighting on 3d Object*/}
+            <Environment preset="sunset" />
           </Suspense>
 
           <OrbitControls />
@@ -86,7 +87,7 @@ const App = () => {
       <div class="menu-overlay">
         <div class="menu-content">
           {meshArray.map((mesh) => (
-            <Accordion_Dropdown name={mesh.name} />
+            <Accordion_Dropdown mesh_name={mesh.name} meshArray={meshArray} />
           ))}
           <Accordion_Dropdown />
         </div>
