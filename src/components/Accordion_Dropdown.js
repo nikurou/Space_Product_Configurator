@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -44,8 +44,22 @@ const Accordion_Dropdown = (props) => {
   const classes = useStyles();
   const [currentColor, setCurrentColor] = useState("#fff");
 
+  // A helper function to set color hook
   const handleColorChange = (color) => {
     setCurrentColor(color);
+  };
+
+  useEffect(() => {
+    console.log("current color is ", currentColor.hex);
+    console.log("This is meshArray", props.meshArray);
+    applyCurrColorToObject(currentColor.hex);
+  }, [currentColor]);
+
+  //  Function to actually apply current color to the 3D Object
+  //  at specified Mesh (props.mesh_name)
+  const applyCurrColorToObject = (hexCode) => {
+    const found = props.meshArray.find((obj) => obj.name === props.mesh_name);
+    found.material.color.set(`${currentColor.hex}`);
   };
 
   return (
@@ -62,11 +76,13 @@ const Accordion_Dropdown = (props) => {
         >
           <div className={`${classes.column} ${classes.icon_description}`}>
             <SportsEsportsIcon />
-            <Typography className={classes.heading}>{props.name}</Typography>
+            <Typography className={classes.heading}>
+              {props.mesh_name}
+            </Typography>
           </div>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>
-              props.currentColor
+              {currentColor.hex}
             </Typography>
           </div>
         </AccordionSummary>
@@ -75,6 +91,7 @@ const Accordion_Dropdown = (props) => {
           <Circle_ColorPicker
             currentColor={currentColor}
             handleColorChange={handleColorChange}
+            //handleApplyColor={applyCurrColorToObject}
           />
         </AccordionDetails>
       </Accordion>
