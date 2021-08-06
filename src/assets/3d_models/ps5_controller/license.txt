@@ -1,0 +1,11 @@
+Model Information:
+* title:	ps5 playstation dual sensor
+* source:	https://sketchfab.com/3d-models/ps5-playstation-dual-sensor-d3e1f367be9e4fcb99202b553593140b
+* author:	trusty.coled (https://sketchfab.com/trusty.coled)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "ps5 playstation dual sensor" (https://sketchfab.com/3d-models/ps5-playstation-dual-sensor-d3e1f367be9e4fcb99202b553593140b) by trusty.coled (https://sketchfab.com/trusty.coled) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
