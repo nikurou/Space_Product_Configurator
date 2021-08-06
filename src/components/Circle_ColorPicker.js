@@ -21,6 +21,7 @@ const Circle_ColorPicker = (props) => {
       onChange={(color) => {
         props.handleColorChange(color);
       }}
+      //onChangeComplete={props.handleApplyColor}
     ></CirclePicker>
   );
 };
