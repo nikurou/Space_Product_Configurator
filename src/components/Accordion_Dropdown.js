@@ -49,17 +49,24 @@ const Accordion_Dropdown = (props) => {
     setCurrentColor(color);
   };
 
+  // Change the color of the 3D object anytime a color is changed.
   useEffect(() => {
     console.log("current color is ", currentColor.hex);
     console.log("This is meshArray", props.meshArray);
-    applyCurrColorToObject(currentColor.hex);
+    applyCurrColorToObject();
   }, [currentColor]);
 
   //  Function to actually apply current color to the 3D Object
   //  at specified Mesh (props.mesh_name)
-  const applyCurrColorToObject = (hexCode) => {
-    const found = props.meshArray.find((obj) => obj.name === props.mesh_name);
-    found.material.color.set(`${currentColor.hex}`);
+  const applyCurrColorToObject = () => {
+    console.log("current color is ", currentColor.hex);
+
+    //Allows you to wait for the data of props.meshArray to be loaded in
+    // and not crash if it's not in yet.
+    if (props.meshArray != null) {
+      const found = props.meshArray.find((obj) => obj.name === props.mesh_name);
+      found.material.color.set(`${currentColor.hex}`);
+    }
   };
 
   return (
