@@ -4,6 +4,7 @@ import { Canvas, useThree, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Html, useProgress } from "@react-three/drei";
 import { Environment, OrbitControls, Stars } from "@react-three/drei";
+import Accordion_Dropdown from "./components/Accordion_Dropdown";
 
 //3D Components
 import Torus from "./components/3D_Components/Torus";
@@ -15,9 +16,9 @@ import Model_Loader from "./components/3D_Components/Model_Loader";
 
 // 3D Models
 import headPhone from "./assets/3d_models/headphone_model/headphone.gltf";
-import Accordion_Dropdown from "./components/Accordion_Dropdown";
 import bomb from "./assets/3d_models/bomb.gltf";
 import ps5_controller from "./assets/3d_models/ps5_controller/scene.gltf";
+import Bomb from "./components/3D_Components/Bomb";
 
 const App = () => {
   // Star Position Array Hook
@@ -27,8 +28,23 @@ const App = () => {
   // Trigger on Initial Render
   // Generate position array for Stars between -100 and 100
   useEffect(() => {
+    const temp = createStars(700);
+    setPos(temp);
+  }, []);
+
+  // Purpose:  While in Suspense, use this as fallback Loader
+  const Loader = () => {
+    const { progress } = useProgress();
+    return <Html center>{progress} % loaded</Html>;
+  };
+
+  // Params: int numStars
+  // Purpose: Given an integer numStars, generates an array "temp" of size numStars.
+  //          Populates with array "ind";
+  //          where "ind" is made of [randomNumber, randomNumber, randomNumber]
+  const createStars = (numStars) => {
     const temp = [];
-    for (let i = 0; i < 700; i++) {
+    for (let i = 0; i < numStars; i++) {
       let ind = [
         Math.floor(Math.random() * (100 - -100 + 1) + -100),
         Math.floor(Math.random() * (100 - -100 + 1) + -100),
@@ -36,16 +52,11 @@ const App = () => {
       ];
       temp.push(ind);
     }
-    setPos(temp);
-  }, []);
-
-  // Suspense fallback Loader
-  const Loader = () => {
-    const { progress } = useProgress();
-    return <Html center>{progress} % loaded</Html>;
+    return temp;
   };
 
-  // Helper function to set array of configurable meshes for given 3D model
+  // Params: []
+  // Purpose: Helper function to assign array of meshes to it's state hook.
   const handleSetMesh = (meshes_array) => {
     setMeshArray(meshes_array);
   };
@@ -57,7 +68,7 @@ const App = () => {
           <ambientLight intensity={0.2} />
           <pointLight position={[20, 20, 20]} intensity={0.5} />
 
-          {/*Add 700 Random Stars*/}
+          {/*Add Random Stars*/}
           {posArray.map((arr) => (
             <Star position={[arr[0], arr[1], arr[2]]}></Star>
           ))}
@@ -67,13 +78,11 @@ const App = () => {
 
           {/* Add with Suspense*/}
           <Suspense fallback={<Loader />}>
-            <Model_Loader model={bomb} handleSetMesh={handleSetMesh} />
+            <Bomb handleSetMesh={handleSetMesh} />
             {/* Add Earth */}
             <Earth position={[250, 14, -40]} />
             {/* Add the Moon */}
             <Moon position={[400, 50, -40]} />
-            {/* Add Donut */}
-            {/* <Torus /> */}
 
             {/* Just a preset for brighter lighting on 3d Object*/}
             <Environment preset="sunset" />
@@ -83,7 +92,8 @@ const App = () => {
         </Canvas>
       </div>
 
-      {/* The User Inteface Menu to change the color */}
+      {/* Displays a Accordion component for every mesh in the 3D GLTF Object
+          Accordion allows user to select color for mesh. */}
       <div class="menu-overlay">
         <div class="menu-content">
           {meshArray.map((mesh) => (
