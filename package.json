@@ -31,6 +31,7 @@
     "@material-ui/icons": "^4.11.2",
     "@react-three/drei": "^7.2.2",
     "@react-three/fiber": "^7.0.6",
+    "gltfjsx": "^4.3.4",
     "react": "^17.0.2",
     "react-color": "^2.19.3",
     "react-scripts": "^4.0.3",
