@@ -65,7 +65,7 @@ const Accordion_Dropdown = (props) => {
     // and not crash if it's not in yet.
     if (props.meshArray != null) {
       const found = props.meshArray.find((obj) => obj.name === props.mesh_name);
-      found.material.color.set(`${currentColor.hex}`);
+      found.color.set(`${currentColor.hex}`);
     }
   };
 
