@@ -15,8 +15,13 @@ const Bomb = (props) => {
   // Allows app.js to directly manipulate the color of the meshes.
   useEffect(() => {
     console.log(nodes);
-    const meshes_array = nodes.Scene.children.filter(
-      (object) => object.type === "Mesh"
+    console.log("Materials: ", materials);
+    // const meshes_array = nodes.Scene.children.filter(
+    //   (object) => object.type === "Mesh"
+    // );
+    var ObjtoArray = Object.values(materials);
+    const meshes_array = ObjtoArray.filter(
+      (obj) => obj.type === "MeshStandardMaterial"
     );
     props.handleSetMesh(meshes_array);
   }, []);
@@ -165,5 +170,5 @@ const Bomb = (props) => {
   );
 };
 
-useGLTF.preload("/bomb.gltf");
+useGLTF.preload(BombGLTF);
 export default Bomb;
