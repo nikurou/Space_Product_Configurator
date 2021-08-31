@@ -5,24 +5,25 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Html, useProgress } from "@react-three/drei";
 import { Environment, OrbitControls, Stars } from "@react-three/drei";
 import Accordion_Dropdown from "./components/Accordion_Dropdown";
+import { useGLTF } from "@react-three/drei";
 
 //3D Components
 import Torus from "./components/3D_Components/Torus";
-import TestBox from "./components/3D_Components/TestBox";
 import Star from "./components/3D_Components/Stars";
 import Earth from "./components/3D_Components/Earth";
 import Moon from "./components/3D_Components/Moon";
-import Model_Loader from "./components/3D_Components/Model_Loader";
 
 // 3D Models
-import headPhone from "./assets/3d_models/headphone_model/headphone.gltf";
-import bomb from "./assets/3d_models/bomb.gltf";
-import ps5_controller from "./assets/3d_models/ps5_controller/scene.gltf";
 import Bomb from "./components/3D_Components/Bomb";
+
+//TEMP
+
+import Fiat_Punto from "./components/3D_Components/Fiat_Punto";
 
 const App = () => {
   // Star Position Array Hook
   const [posArray, setPos] = useState([]);
+  // Array hook that holds pointers to every mesh object of a given 3d model.
   const [meshArray, setMeshArray] = useState([]);
 
   // Trigger on Initial Render
@@ -57,6 +58,7 @@ const App = () => {
 
   // Params: []
   // Purpose: Helper function to assign array of meshes to it's state hook.
+  //          Mesh array used to select each mesh that's part of the model, and allow the user to color them.
   const handleSetMesh = (meshes_array) => {
     setMeshArray(meshes_array);
   };
@@ -76,9 +78,15 @@ const App = () => {
           {/*Throw in some Imported Drei Stars cause why not*/}
           <Stars />
 
-          {/* Add with Suspense*/}
+          {/* Load with Suspense, such that if it takes a while to load, there's something to fall back onto*/}
           <Suspense fallback={<Loader />}>
-            <Bomb handleSetMesh={handleSetMesh} />
+            {/* <Bomb handleSetMesh={handleSetMesh} /> */}
+
+            <Fiat_Punto
+              nodesAndMaterial={useGLTF("Fiat_Punto.gltf")}
+              handleSetMesh={handleSetMesh}
+            />
+
             {/* Add Earth */}
             <Earth position={[250, 14, -40]} />
             {/* Add the Moon */}
