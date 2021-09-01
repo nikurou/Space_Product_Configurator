@@ -14,11 +14,6 @@ const Bomb = (props) => {
   // and save it to the meshes_array hook in app.js
   // Allows app.js to directly manipulate the color of the meshes.
   useEffect(() => {
-    console.log(nodes);
-    console.log("Materials: ", materials);
-    // const meshes_array = nodes.Scene.children.filter(
-    //   (object) => object.type === "Mesh"
-    // );
     var ObjtoArray = Object.values(materials);
     const meshes_array = ObjtoArray.filter(
       (obj) => obj.type === "MeshStandardMaterial"
