@@ -306,7 +306,19 @@
         "roughnessFactor": 0.59999999999999998
       }
     },
-
+    {
+      "doubleSided": true,
+      "name": "Top_Radiator_Mesh",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [1, 1, 1, 1],
+        "baseColorTexture": {
+          "index": 2,
+          "texCoord": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.59999999999999998
+      }
+    },
     {
       "doubleSided": true,
       "name": "Right_Joycon",
@@ -410,7 +422,7 @@
             "TEXCOORD_0": 22
           },
           "indices": 23,
-          "material": 4,
+          "material": 5,
           "mode": 4
         }
       ]
