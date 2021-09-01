@@ -15,10 +15,8 @@ import Moon from "./components/3D_Components/Moon";
 
 // 3D Models
 import Bomb from "./components/3D_Components/Bomb";
-
-//TEMP
-
 import Fiat_Punto from "./components/3D_Components/Fiat_Punto";
+import Nintendo_Switch from "./components/3D_Components/Nintendo_Switch";
 
 const App = () => {
   // Star Position Array Hook
@@ -56,6 +54,53 @@ const App = () => {
     return temp;
   };
 
+  function Switch(props) {
+    const group = useRef();
+    const { nodes, materials } = useGLTF("nintendo_switch/switch.gltf");
+
+    // On load, filter all references of the meshes of the 3d Object,
+    // and save it to the meshes_array hook in app.js
+    // Allows app.js to directly manipulate the color of the meshes.
+    useEffect(() => {
+      var ObjtoArray = Object.values(materials);
+      const meshes_array = ObjtoArray.filter(
+        (obj) => obj.type === "MeshStandardMaterial"
+      );
+      handleSetMesh(meshes_array);
+    }, []);
+
+    return (
+      <group ref={group} {...props} dispose={null}>
+        <group rotation={[-Math.PI / 2, 0, 0]}>
+          <mesh
+            geometry={nodes.mesh_0.geometry}
+            material={materials.Top_Radiator_Mesh}
+          />
+          <mesh
+            geometry={nodes.mesh_1.geometry}
+            material={materials.Volume_Rocker}
+          />
+          <mesh
+            geometry={nodes.mesh_2.geometry}
+            material={materials.Screen_Bezel}
+          />
+          <mesh
+            geometry={nodes.mesh_3.geometry}
+            material={materials.Bumper_and_Buttons}
+          />
+          <mesh
+            geometry={nodes.mesh_4.geometry}
+            material={materials.Right_Joycon}
+          />
+          <mesh
+            geometry={nodes.mesh_5.geometry}
+            material={materials.Left_Joycon}
+          />
+        </group>
+      </group>
+    );
+  }
+
   // Params: []
   // Purpose: Helper function to assign array of meshes to it's state hook.
   //          Mesh array used to select each mesh that's part of the model, and allow the user to color them.
@@ -70,26 +115,13 @@ const App = () => {
           <ambientLight intensity={0.2} />
           <pointLight position={[20, 20, 20]} intensity={0.5} />
 
-          {/*Add Random Stars*/}
-          {posArray.map((arr) => (
-            <Star position={[arr[0], arr[1], arr[2]]}></Star>
-          ))}
-
-          {/*Throw in some Imported Drei Stars cause why not*/}
+          {/*Throw in some Imported Drei Stars*/}
           <Stars />
 
           {/* Load with Suspense, such that if it takes a while to load, there's something to fall back onto*/}
           <Suspense fallback={<Loader />}>
-            {/* <Bomb handleSetMesh={handleSetMesh} /> */}
-
-            <Fiat_Punto
-              nodesAndMaterial={useGLTF("Fiat_Punto.gltf")}
-              handleSetMesh={handleSetMesh}
-            />
-
-            {/* Add Earth */}
+            <Switch />
             <Earth position={[250, 14, -40]} />
-            {/* Add the Moon */}
             <Moon position={[400, 50, -40]} />
 
             {/* Just a preset for brighter lighting on 3d Object*/}
@@ -107,7 +139,6 @@ const App = () => {
           {meshArray.map((mesh) => (
             <Accordion_Dropdown mesh_name={mesh.name} meshArray={meshArray} />
           ))}
-          <Accordion_Dropdown />
         </div>
       </div>
     </div>
