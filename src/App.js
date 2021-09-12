@@ -1,6 +1,6 @@
 import React, { useRef, useState, Suspense, useEffect } from "react";
 import "./App.css";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { Html, useProgress } from "@react-three/drei";
 import { Environment, OrbitControls, Stars } from "@react-three/drei";
 import Accordion_Dropdown from "./components/Accordion_Dropdown";
