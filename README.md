@@ -15,9 +15,13 @@ With a fun little space theme, you can watch the game console float freely whils
 
 # How to Run Demo
 
-Simply open the link here: [pending link]
+Open Demo Link: [Space Product Configurator](https://nikurou.github.io/Space_Product_Configurator/)
 
-Or if you want to open it up yourself: - Clone the repo - run npm install to download all the packages - run npm start
+Or if you want to open it up yourself:
+
+- Clone the repo
+- run npm install to download all the packages
+- run npm start
 
 # Motivation
 
