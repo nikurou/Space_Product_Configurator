@@ -1,2 +1,2 @@
 *{box-sizing:border-box}#root,body,html{width:100%;height:100%;margin:0;padding:0}body{background:#f0f0f0}.scene{background-color:#000}.donut-scene,.scene{width:100%;height:100%}.donut-scene,.menu-overlay{position:absolute}.menu-overlay{z-index:9;width:25%;height:100%;right:0;overflow:hidden}.menu-content{margin-top:5%;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;overflow-y:scroll;overflow-x:hidden;-ms-overflow-style:none;scrollbar-width:none}.menu-content ::-webkit-scrollbar{display:none}
-/*# sourceMappingURL=main.9d315f3e.chunk.css.map */
+/*# sourceMappingURL=main.bbb4370d.chunk.css.map */
