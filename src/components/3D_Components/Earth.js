@@ -1,5 +1,5 @@
-import React, { Suspense, useRef } from "react";
-import { useFrame, useLoader, Canvas } from "@react-three/fiber";
+import React, { useRef } from "react";
+import { useFrame, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 import earth_texture from "../../assets/textures/earth_texture.jpg";
 
