@@ -8,7 +8,8 @@ With a fun little space theme, you can watch the game console float freely whils
 
 # Images
 
-PENDING
+![switch one](public\switch_one.png)
+![switch two](public\switch_two.png)
 
 # How to Run Demo
 
