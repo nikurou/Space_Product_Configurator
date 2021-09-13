@@ -1,4 +1,4 @@
-## Space Product Configurator (Nintendo Switch)
+# Space Product Configurator (Nintendo Switch)
 
 # Description
 
@@ -24,26 +24,29 @@ After following some guides, [blogs](https://official-osorina.medium.com/creatin
 
 Some of the tricky challenges for this project of course included learning Three JS and React Three Fiber and all about 3D models, normal maps, texture maps. But otherwise I had some bugs that took some work to figure out.
 
-- Various Model Authors using different schemes for their model data
-  My approach was to take a model's object and extract their meshes using array.filter(), then to pass this array of references to the meshes to another component that reads it and allows you to edit their colors.
+## Various Model Authors using different schemes for their model data
 
-  What I found was that after making it work for one particular 3D model I had downloaded from SketchFab, I wanted to use another model and realized it no longer worked because both model authors used different ways of naming their object's properties, so my array.filter() wasn't working. I had assumed it was standardized or automated or something when the objects got compiled and exported from whatever they were using to make the models.
+- My approach was to take a model's object and extract their meshes using array.filter(), then to pass this array of references to the meshes to another component that reads it and allows you to edit their colors.
 
-  Thankfully, I found that was actually the case if you access the "materials" rather some other part of the object. After some refactoring of my code, I could now theoretically support editing and swapping out of multiple models if I wanted to.
+What I found was that after making it work for one particular 3D model I had downloaded from SketchFab, I wanted to use another model and realized it no longer worked because both model authors used different ways of naming their object's properties, so my array.filter() wasn't working. I had assumed it was standardized or automated or something when the objects got compiled and exported from whatever they were using to make the models.
 
-- Maximum update depth exceeded. This can happen when a component calls setState inside useEffect Bug
-  I was attempting to use the react useEffect Hook to set a state variable called "meshes_array". I gave it an empty array as a depedency, meaning that useEffect would only be called on initial render, yet for some reason, I was getting an infinite loop of setState calls.
+Thankfully, I found that was actually the case if you access the "materials" rather some other part of the object. After some refactoring of my code, I could now theoretically support editing and swapping out of multiple models if I wanted to.
 
-  In the end, I realized that because my meshes_array was made by calling an array.filter() method, which essentially returns a reference to a new array every time even if the values are the same, it kept thinking that I was setting a new array. The solution ended up being fairly simple once I found the cause. Simply do a deep by value comparison, and if they were the same, do not call the setState function.
+## Maximum update depth exceeded. This can happen when a component calls setState inside useEffect Bug
 
-- Loading 3D Objects as a JSX Component for React
-  Importing the 3D Object into the scene itself isn't hard at all and there's [documentation](https://docs.pmnd.rs/react-three-fiber/tutorials/loading-models) for it, but I wanted to import the JSX component from src>components folder as this is sort of the standard for React practices that I've been taught.
+- I was attempting to use the react useEffect Hook to set a state variable called "meshes_array". I gave it an empty array as a depedency, meaning that useEffect would only be called on initial render, yet for some reason, I was getting an infinite loop of setState calls.
 
-  Unfortunately, the documentation reads "This whole section will assume you have placed your models in the public folder or in a place in your application where you can import them easily." However, attempting to import 3D JSX components from src>components while reading their textures and gltf file from the public folder results in an error as I'd be attempted to read a file in another folder that is above and outside of it's scope. And putting the 3d model textures and etc into the component folder also did not work as it would be unable to find the textures. In the end, I just went with the documentation's recommended way.
+In the end, I realized that because my meshes_array was made by calling an array.filter() method, which essentially returns a reference to a new array every time even if the values are the same, it kept thinking that I was setting a new array. The solution ended up being fairly simple once I found the cause. Simply do a deep by value comparison, and if they were the same, do not call the setState function.
+
+## Loading 3D Objects as a JSX Component for React
+
+- Importing the 3D Object into the scene itself isn't hard at all and there's [documentation](https://docs.pmnd.rs/react-three-fiber/tutorials/loading-models) for it, but I wanted to import the JSX component from src>components folder as this is sort of the standard for React practices that I've been taught.
+
+Unfortunately, the documentation reads "This whole section will assume you have placed your models in the public folder or in a place in your application where you can import them easily." However, attempting to import 3D JSX components from src>components while reading their textures and gltf file from the public folder results in an error as I'd be attempted to read a file in another folder that is above and outside of it's scope. And putting the 3d model textures and etc into the component folder also did not work as it would be unable to find the textures. In the end, I just went with the documentation's recommended way.
 
 # Conclusion
 
-    A lot of my time was spent messing around with custom models and tinkering with ThreeJS. That's why there'll be a lot of un-used assets and components in the files of various things. It was a very learn as you go approach where I experimented with random things then tossed them aside if I didn't think they were necessary. Very different than some of the guided tutorial projects that I sometimes work on that have a set goal and purpose and end point. In retrospect, knowing what I know now, this project isn't that difficult, but it was my first forray into ThreeJS and I intend to go further as it's responsible for some of the coolest webpages I've ever seen.
+A lot of my time was spent messing around with custom models and tinkering with ThreeJS. That's why there'll be a lot of un-used assets and components in the files of various things. It was a very learn as you go approach where I experimented with random things then tossed them aside if I didn't think they were necessary. Very different than some of the guided tutorial projects that I sometimes work on that have a set goal and purpose and end point. In retrospect, knowing what I know now, this project isn't that difficult, but it was my first forray into ThreeJS and I intend to go further as it's responsible for some of the coolest webpages I've ever seen.
 
 # Credits for Nintendo Switch Model
 
