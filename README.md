@@ -8,8 +8,10 @@ With a fun little space theme, you can watch the game console float freely whils
 
 # Images
 
-![switch one](public\switch_one.png)
-![switch two](public\switch_two.png)
+<p align = "center">
+ <img src = "src\assets\images\switch_one.png" alt = "front">
+ <img src = "src\assets\images\switch_two.png" alt = "bottom">
+</p>
 
 # How to Run Demo
 
