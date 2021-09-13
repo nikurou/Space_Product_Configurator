@@ -6,6 +6,10 @@ A product configurator built with React Three Fiber. Allows a user to in real-ti
 
 With a fun little space theme, you can watch the game console float freely whilst rotating about with a starry backdrop complete with our planet and moon in the background.
 
+# Images
+
+PENDING
+
 # How to Run Demo
 
 Simply open the link here: [pending link]
@@ -28,21 +32,21 @@ Some of the tricky challenges for this project of course included learning Three
 
 - My approach was to take a model's object and extract their meshes using array.filter(), then to pass this array of references to the meshes to another component that reads it and allows you to edit their colors.
 
-What I found was that after making it work for one particular 3D model I had downloaded from SketchFab, I wanted to use another model and realized it no longer worked because both model authors used different ways of naming their object's properties, so my array.filter() wasn't working. I had assumed it was standardized or automated or something when the objects got compiled and exported from whatever they were using to make the models.
+- What I found was that after making it work for one particular 3D model I had downloaded from SketchFab, I wanted to use another model and realized it no longer worked because both model authors used different ways of naming their object's properties, so my array.filter() wasn't working. I had assumed it was standardized or automated or something when the objects got compiled and exported from whatever they were using to make the models.
 
-Thankfully, I found that was actually the case if you access the "materials" rather some other part of the object. After some refactoring of my code, I could now theoretically support editing and swapping out of multiple models if I wanted to.
+- Thankfully, I found that was actually the case if you access the "materials" rather some other part of the object. After some refactoring of my code, I could now theoretically support editing and swapping out of multiple models if I wanted to.
 
 ## Maximum update depth exceeded. This can happen when a component calls setState inside useEffect Bug
 
 - I was attempting to use the react useEffect Hook to set a state variable called "meshes_array". I gave it an empty array as a depedency, meaning that useEffect would only be called on initial render, yet for some reason, I was getting an infinite loop of setState calls.
 
-In the end, I realized that because my meshes_array was made by calling an array.filter() method, which essentially returns a reference to a new array every time even if the values are the same, it kept thinking that I was setting a new array. The solution ended up being fairly simple once I found the cause. Simply do a deep by value comparison, and if they were the same, do not call the setState function.
+- In the end, I realized that because my meshes_array was made by calling an array.filter() method, which essentially returns a reference to a new array every time even if the values are the same, it kept thinking that I was setting a new array. The solution ended up being fairly simple once I found the cause. Simply do a deep by value comparison, and if they were the same, do not call the setState function.
 
 ## Loading 3D Objects as a JSX Component for React
 
 - Importing the 3D Object into the scene itself isn't hard at all and there's [documentation](https://docs.pmnd.rs/react-three-fiber/tutorials/loading-models) for it, but I wanted to import the JSX component from src>components folder as this is sort of the standard for React practices that I've been taught.
 
-Unfortunately, the documentation reads "This whole section will assume you have placed your models in the public folder or in a place in your application where you can import them easily." However, attempting to import 3D JSX components from src>components while reading their textures and gltf file from the public folder results in an error as I'd be attempted to read a file in another folder that is above and outside of it's scope. And putting the 3d model textures and etc into the component folder also did not work as it would be unable to find the textures. In the end, I just went with the documentation's recommended way.
+- Unfortunately, the documentation reads "This whole section will assume you have placed your models in the public folder or in a place in your application where you can import them easily." However, attempting to import 3D JSX components from src>components while reading their textures and gltf file from the public folder results in an error as I'd be attempted to read a file in another folder that is above and outside of it's scope. And putting the 3d model textures and etc into the component folder also did not work as it would be unable to find the textures. In the end, I just went with the documentation's recommended way.
 
 # Conclusion
 
