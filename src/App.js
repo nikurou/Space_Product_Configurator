@@ -1,6 +1,6 @@
 import React, { useRef, useState, Suspense, useEffect } from "react";
 import "./App.css";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Html, useProgress } from "@react-three/drei";
 import { Environment, OrbitControls, Stars } from "@react-three/drei";
 import Accordion_Dropdown from "./components/Accordion_Dropdown";
@@ -51,6 +51,12 @@ const App = () => {
   function Switch(props) {
     const group = useRef();
     const { nodes, materials } = useGLTF("nintendo_switch/switch.gltf");
+
+    useFrame(() => {
+      group.current.rotation.x += 0.00009;
+      group.current.rotation.y += 0.00009;
+      group.current.rotation.z += 0.00009;
+    });
 
     // On load, filter all references of the meshes of the 3d Object,
     // and save it to the meshes_array hook in app.js
